@@ -9,7 +9,7 @@ export default function Navbar({ cvUrl }: NavbarProps) {
   return (
     <header className={`navbar ${styles.navbar}`}>
       <div className={styles.navLogo}>
-        <Link href="#">ARA</Link>
+        <Link href="#">ASLAMRA.DEV</Link>
       </div>
       <nav>
         <ul className={styles.navLinks}>
