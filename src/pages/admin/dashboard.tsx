@@ -6,13 +6,35 @@ import styles from '@/styles/Admin.module.css'
 interface PortfolioData {
   hero: any
   about: any
-  experience: any[]
-  projects: any
+  experience: Experience[]
+  projects: ProjectsSection
   contact: any
   social: any
   settings: any
 }
+interface Project {
+  id: number
+  label?: string
+  title: string
+  description: string
+  technologies: string[]
+  github: string
+  demo?: string
+  image?: string
+}
 
+interface ProjectsSection {
+  featured: Project[]
+  other: Project[]
+}
+
+interface Experience {
+  id: number
+  period: string
+  institution: string
+  position: string
+  description: string
+}
 export default function AdminDashboard() {
   const [data, setData] = useState<PortfolioData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -33,7 +55,7 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const res = await fetch('/api/portfolio')
-      const portfolioData = await res.json()
+      const portfolioData: PortfolioData = await res.json()
       setData(portfolioData)
     } catch (error) {
       console.error('Failed to fetch data:', error)
@@ -155,7 +177,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.hero.intro}
-                    onChange={(e) => setData({...data, hero: {...data.hero, intro: e.target.value}})}
+                    onChange={(e) => setData({ ...data, hero: { ...data.hero, intro: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -163,7 +185,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.hero.name}
-                    onChange={(e) => setData({...data, hero: {...data.hero, name: e.target.value}})}
+                    onChange={(e) => setData({ ...data, hero: { ...data.hero, name: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -171,7 +193,7 @@ export default function AdminDashboard() {
                   <textarea
                     rows={4}
                     value={data.hero.roles.join('\n')}
-                    onChange={(e) => setData({...data, hero: {...data.hero, roles: e.target.value.split('\n')}})}
+                    onChange={(e) => setData({ ...data, hero: { ...data.hero, roles: e.target.value.split('\n') } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -179,7 +201,7 @@ export default function AdminDashboard() {
                   <textarea
                     rows={4}
                     value={data.hero.description}
-                    onChange={(e) => setData({...data, hero: {...data.hero, description: e.target.value}})}
+                    onChange={(e) => setData({ ...data, hero: { ...data.hero, description: e.target.value } })}
                   />
                 </div>
               </div>
@@ -194,7 +216,7 @@ export default function AdminDashboard() {
                   <textarea
                     rows={8}
                     value={data.about.text}
-                    onChange={(e) => setData({...data, about: {...data.about, text: e.target.value}})}
+                    onChange={(e) => setData({ ...data, about: { ...data.about, text: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -202,7 +224,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.about.image}
-                    onChange={(e) => setData({...data, about: {...data.about, image: e.target.value}})}
+                    onChange={(e) => setData({ ...data, about: { ...data.about, image: e.target.value } })}
                   />
                   <small>Upload foto ke folder public/ lalu masukkan path (contoh: /profil.jpg)</small>
                 </div>
@@ -214,7 +236,7 @@ export default function AdminDashboard() {
               <div className={styles.section}>
                 <div className={styles.sectionHeader}>
                   <h2>Experience</h2>
-                  <button 
+                  <button
                     onClick={() => {
                       const newExp = [...data.experience, {
                         id: Date.now(),
@@ -223,7 +245,7 @@ export default function AdminDashboard() {
                         position: '',
                         description: ''
                       }]
-                      setData({...data, experience: newExp})
+                      setData({ ...data, experience: newExp })
                     }}
                     className={styles.addButton}
                   >
@@ -237,7 +259,7 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => {
                           const newExp = data.experience.filter((_, i) => i !== index)
-                          setData({...data, experience: newExp})
+                          setData({ ...data, experience: newExp })
                         }}
                         className={styles.deleteButton}
                       >
@@ -252,7 +274,7 @@ export default function AdminDashboard() {
                         onChange={(e) => {
                           const newExp = [...data.experience]
                           newExp[index].period = e.target.value
-                          setData({...data, experience: newExp})
+                          setData({ ...data, experience: newExp })
                         }}
                       />
                     </div>
@@ -264,7 +286,7 @@ export default function AdminDashboard() {
                         onChange={(e) => {
                           const newExp = [...data.experience]
                           newExp[index].institution = e.target.value
-                          setData({...data, experience: newExp})
+                          setData({ ...data, experience: newExp })
                         }}
                       />
                     </div>
@@ -276,7 +298,7 @@ export default function AdminDashboard() {
                         onChange={(e) => {
                           const newExp = [...data.experience]
                           newExp[index].position = e.target.value
-                          setData({...data, experience: newExp})
+                          setData({ ...data, experience: newExp })
                         }}
                       />
                     </div>
@@ -288,7 +310,7 @@ export default function AdminDashboard() {
                         onChange={(e) => {
                           const newExp = [...data.experience]
                           newExp[index].description = e.target.value
-                          setData({...data, experience: newExp})
+                          setData({ ...data, experience: newExp })
                         }}
                       />
                     </div>
@@ -302,9 +324,9 @@ export default function AdminDashboard() {
               <div className={styles.section}>
                 <div className={styles.sectionHeader}>
                   <h2>Featured Projects</h2>
-                  <button 
+                  <button
                     onClick={() => {
-                      const newProjects = {...data.projects}
+                      const newProjects = { ...data.projects }
                       newProjects.featured.push({
                         id: Date.now(),
                         label: '',
@@ -315,7 +337,7 @@ export default function AdminDashboard() {
                         demo: '',
                         image: '/project1.jpg'
                       })
-                      setData({...data, projects: newProjects})
+                      setData({ ...data, projects: newProjects })
                     }}
                     className={styles.addButton}
                   >
@@ -328,9 +350,9 @@ export default function AdminDashboard() {
                       <h3>{project.title || `Featured Project #${index + 1}`}</h3>
                       <button
                         onClick={() => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured = newProjects.featured.filter((_, i) => i !== index)
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                         className={styles.deleteButton}
                       >
@@ -343,9 +365,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.label}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].label = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -355,9 +377,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.title}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].title = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -367,9 +389,9 @@ export default function AdminDashboard() {
                         rows={4}
                         value={project.description}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].description = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -379,9 +401,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.technologies.join(', ')}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].technologies = e.target.value.split(',').map(t => t.trim())
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -391,9 +413,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.github}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].github = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -403,20 +425,20 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.image}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.featured[index].image = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
                   </div>
                 ))}
 
-                <div className={styles.sectionHeader} style={{marginTop: '40px'}}>
+                <div className={styles.sectionHeader} style={{ marginTop: '40px' }}>
                   <h2>Other Projects</h2>
-                  <button 
+                  <button
                     onClick={() => {
-                      const newProjects = {...data.projects}
+                      const newProjects = { ...data.projects }
                       newProjects.other.push({
                         id: Date.now(),
                         title: '',
@@ -424,7 +446,7 @@ export default function AdminDashboard() {
                         technologies: [],
                         github: ''
                       })
-                      setData({...data, projects: newProjects})
+                      setData({ ...data, projects: newProjects })
                     }}
                     className={styles.addButton}
                   >
@@ -437,9 +459,9 @@ export default function AdminDashboard() {
                       <h3>{project.title || `Other Project #${index + 1}`}</h3>
                       <button
                         onClick={() => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.other = newProjects.other.filter((_, i) => i !== index)
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                         className={styles.deleteButton}
                       >
@@ -452,9 +474,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.title}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.other[index].title = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -464,9 +486,9 @@ export default function AdminDashboard() {
                         rows={3}
                         value={project.description}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.other[index].description = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -476,9 +498,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.technologies.join(', ')}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.other[index].technologies = e.target.value.split(',').map(t => t.trim())
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -488,9 +510,9 @@ export default function AdminDashboard() {
                         type="text"
                         value={project.github}
                         onChange={(e) => {
-                          const newProjects = {...data.projects}
+                          const newProjects = { ...data.projects }
                           newProjects.other[index].github = e.target.value
-                          setData({...data, projects: newProjects})
+                          setData({ ...data, projects: newProjects })
                         }}
                       />
                     </div>
@@ -508,7 +530,7 @@ export default function AdminDashboard() {
                   <textarea
                     rows={4}
                     value={data.contact.text}
-                    onChange={(e) => setData({...data, contact: {...data.contact, text: e.target.value}})}
+                    onChange={(e) => setData({ ...data, contact: { ...data.contact, text: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -516,7 +538,7 @@ export default function AdminDashboard() {
                   <input
                     type="email"
                     value={data.contact.email}
-                    onChange={(e) => setData({...data, contact: {...data.contact, email: e.target.value}})}
+                    onChange={(e) => setData({ ...data, contact: { ...data.contact, email: e.target.value } })}
                   />
                 </div>
               </div>
@@ -531,7 +553,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.social.github}
-                    onChange={(e) => setData({...data, social: {...data.social, github: e.target.value}})}
+                    onChange={(e) => setData({ ...data, social: { ...data.social, github: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -539,7 +561,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.social.linkedin}
-                    onChange={(e) => setData({...data, social: {...data.social, linkedin: e.target.value}})}
+                    onChange={(e) => setData({ ...data, social: { ...data.social, linkedin: e.target.value } })}
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -547,7 +569,7 @@ export default function AdminDashboard() {
                   <input
                     type="email"
                     value={data.social.email}
-                    onChange={(e) => setData({...data, social: {...data.social, email: e.target.value}})}
+                    onChange={(e) => setData({ ...data, social: { ...data.social, email: e.target.value } })}
                   />
                 </div>
               </div>
@@ -562,7 +584,7 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     value={data.settings.cvUrl}
-                    onChange={(e) => setData({...data, settings: {...data.settings, cvUrl: e.target.value}})}
+                    onChange={(e) => setData({ ...data, settings: { ...data.settings, cvUrl: e.target.value } })}
                   />
                   <small>Upload CV ke folder public/ lalu masukkan path (contoh: /cv.pdf)</small>
                 </div>
@@ -571,7 +593,7 @@ export default function AdminDashboard() {
                   <input
                     type="color"
                     value={data.settings.theme.accentColor}
-                    onChange={(e) => setData({...data, settings: {...data.settings, theme: {...data.settings.theme, accentColor: e.target.value}}})}
+                    onChange={(e) => setData({ ...data, settings: { ...data.settings, theme: { ...data.settings.theme, accentColor: e.target.value } } })}
                   />
                   <small>Warna aksen untuk tema portfolio</small>
                 </div>
@@ -579,8 +601,8 @@ export default function AdminDashboard() {
             )}
 
             <div className={styles.saveSection}>
-              <button 
-                onClick={handleSave} 
+              <button
+                onClick={handleSave}
                 className={styles.saveButton}
                 disabled={saving}
               >
