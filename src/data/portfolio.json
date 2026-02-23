@@ -30,7 +30,13 @@
         "label": "Proyek Laravel",
         "title": "Sistem Pelaporan Kerusakan Fasilitas - FixIT",
         "description": "Bekerja sama dengan beberapa mahasiswa saat semester 5, membangun sistem pelaporan dan perbaikan fasilitas kampus berbasis web untuk Jurusan Teknologi Informasi Polinema menggunakan Laravel 10 dan MySQL. Fitur utama mencakup multi-role login, pelaporan kerusakan dengan foto, prioritas perbaikan berbasis DSS, serta laporan dan statistik fasilitas.",
-        "technologies": ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
+        "technologies": [
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "JavaScript",
+          "Bootstrap"
+        ],
         "github": "https://github.com/aslamrosul/PBL_KEL1_FASILITAS",
         "demo": "#",
         "image": "/project1.jpg"
@@ -40,7 +46,13 @@
         "label": "Proyek Keamanan & Data",
         "title": "Sistem Informasi Portal Berita - KataData",
         "description": "Bekerja sama dengan beberapa mahasiswa saat semester 3, membangun web portal berita berbasis MongoDB dengan PHP, HTML, CSS, dan JavaScript. Fitur utama: CRUD berita, kategori, pencarian, notifikasi, berita trending, serta dashboard admin dan halaman utama pengguna.",
-        "technologies": ["PHP", "MongoDB", "JavaScript", "HTML", "CSS"],
+        "technologies": [
+          "PHP",
+          "MongoDB",
+          "JavaScript",
+          "HTML",
+          "CSS"
+        ],
         "github": "https://github.com/dedybayu/Project_MongoDB_Basdat/",
         "demo": "#",
         "image": "/project2.jpg"
@@ -51,21 +63,32 @@
         "id": 3,
         "title": "Landing Page (Modifikasi Template)",
         "description": "Modifikasi template HTML/CSS untuk klien [Nama]. Fokus pada kustomisasi CSS, responsivitas, dan optimasi kecepatan.",
-        "technologies": ["HTML", "CSS", "JavaScript"],
+        "technologies": [
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ],
         "github": "https://github.com/aslamrosul/..."
       },
       {
         "id": 4,
         "title": "Bot Discord (Contoh)",
         "description": "Membuat bot Discord sederhana menggunakan Python (discord.py) untuk moderasi otomatis dan perintah kustom.",
-        "technologies": ["Python", "Discord.py", "API"],
+        "technologies": [
+          "Python",
+          "Discord.py",
+          "API"
+        ],
         "github": "https://github.com/aslamrosul/..."
       },
       {
         "id": 5,
         "title": "Sistem Respositori Dokumen (Konsep)",
         "description": "Desain UI/UX dan prototipe awal untuk aplikasi Repositori Dokumen JTI Polinema menggunakan Figma.",
-        "technologies": ["Figma", "UI/UX"],
+        "technologies": [
+          "Figma",
+          "UI/UX"
+        ],
         "github": "https://www.figma.com/design/0q4dPdFlc3plyKMGuA6HRI/Untitled?node-id=152-2&p=f"
       }
     ]
